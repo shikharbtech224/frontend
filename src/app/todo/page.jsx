@@ -21,7 +21,7 @@ const Todo = () => {
     const deleteTodo = (index) => {
 
         const temp = todoList;
-        todoList.splice(index, 1);
+        temp.splice(index, 1);
         setTodoList([...temp]);
     }
 
@@ -54,7 +54,7 @@ const Todo = () => {
             }
                 <div>
                     <button onClick={ () => { completeTodo(index) } } className='btn btn-primary me-3'>{todo.completed ? 'Undo' : 'Complete'}</button>
-                    <button onClick={ () => {deleteTodo(index) } } className='btn btn-danger'>Danger</button>
+                    <button onClick={ () => {deleteTodo(index) } } className='btn btn-danger'>Delete</button>
                 </div>
                 </div> } )} 
             </div>

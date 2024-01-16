@@ -11,6 +11,12 @@ const SignupSchema = Yup.object().shape({
     .required('Required'),
   email: Yup.string().email('Invalid email').required('Required'),
   password : Yup.string().min(4, 'Too Short!').required('Required')
+  .matches(/[a-z]/, 'Password must contain at least one lowercase letter')
+  .matches(/[A-Z]/, 'Password must contain at least one uppercase letter')
+  .matches(/[0-9]/, 'Password must contain at least one digit')
+  .matches(/\W/, 'Password must contain at least one special character'),
+  confirmPassword: Yup.string().oneOf([Yup.ref('password'), null], 'Password must match')
+  .required('confirm password is required')
 });
 
 const Signup = () => {
@@ -24,7 +30,11 @@ const Signup = () => {
     },
     onSubmit: (values, {resetForm}) => {
       console.log(values);
-      resetForm();
+
+      setTimeout(() => {
+              resetForm();
+      }, 3000);
+
     },
     validationSchema: SignupSchema
   });
@@ -52,7 +62,7 @@ const Signup = () => {
                 <span className='text-danger ms-3'>{signupForm.errors.confirmPassword}</span>
                 <input type="password" className='form-control mb-4' id="confirmPassword" onChange={signupForm.handleChange} value={signupForm.values.confirmPassword}/>
 
-                <button className='btn btn-primary mt-3'type='submit'>Signup</button>
+                <button className='btn btn-primary mt-3'type='submit' disabled={signupForm.isSubmitting} >{ signupForm.isSubmitting ? 'Submitting...' : 'Submit'}</button>
               </form>
             </div>
           </div>

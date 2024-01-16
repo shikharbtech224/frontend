@@ -1,0 +1,21 @@
+.chat-body{
+    height: 70vh;
+    overflow: auto;
+}
+
+.chat-bubble{
+    background-color: crimson;
+    color: white;
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 20px 20px 0px 20px;
+    max-width: 70%;
+    width: fit-content;
+    width: -moz-fit-content;
+    margin-left: auto;
+
+}
+
+.chat-bubble p{
+    margin: 0;
+}

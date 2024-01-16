@@ -3,9 +3,6 @@ import React, { useEffect } from 'react'
 
 const Home = () => {
 
-  useEffect(() => {
-   require('bootstrap/dist/js/bootstrap.min.js')
-    },[]);
   
   return (
     <div>
