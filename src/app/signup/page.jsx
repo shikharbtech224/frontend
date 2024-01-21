@@ -3,6 +3,7 @@ import React from 'react';
 // import './signup.css';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import { enqueueSnackbar } from 'notistack';
 
 const SignupSchema = Yup.object().shape({
   name: Yup.string()
@@ -28,12 +29,26 @@ const Signup = () => {
       password : '',
       confirmPassword : ''
     },
-    onSubmit: (values, {resetForm}) => {
+    onSubmit: async (values, {resetForm}) => {
       console.log(values);
 
-      setTimeout(() => {
-              resetForm();
-      }, 3000);
+      // setTimeout(() => {
+      //         resetForm();
+      // }, 3000);
+
+      const res = await fetch('http://localhost:5000/user/add', {
+        method: 'POST',
+        body: JSON.stringify(values),
+        headers: { 'Content-Type' : 'application/json'}
+      });
+
+      console.log(res.status);
+
+      if(res.status === 200){
+        enqueueSnackbar('Successfully Registered', {variant: 'success'});
+      }else{
+        enqueueSnackbar('Something went wrong', {variant: 'error'});
+      }
 
     },
     validationSchema: SignupSchema

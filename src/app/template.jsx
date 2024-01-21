@@ -1,4 +1,5 @@
 'use client'
+import { SnackbarProvider } from 'notistack';
 import { useEffect } from 'react';
 
 export default function Template({ children }) {
@@ -7,5 +8,7 @@ export default function Template({ children }) {
     require('bootstrap/dist/js/bootstrap.min.js')
      },[]);
 
-    return <div>{children}</div>
+    return <SnackbarProvider maxSnack={3} anchorOrigin={{ vertical: 'top', horizontal: 'right' }} >
+      {children}
+      </SnackbarProvider>
   }
