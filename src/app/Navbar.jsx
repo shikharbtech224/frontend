@@ -69,6 +69,12 @@ const Navbar = () => {
           </Link>
         </li>
 
+        <li className="nav-item">
+          <Link className="nav-link" href="/manageuser">
+            Manage User
+          </Link>
+        </li>
+
       </ul>
       <form className="d-flex" role="search">
         <input
