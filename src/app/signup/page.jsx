@@ -20,7 +20,7 @@ const SignupSchema = Yup.object().shape({
   .required('confirm password is required')
 });
 
-const Signup = () => {w
+const Signup = () => {
 
   const signupForm = useFormik({
     initialValues: {

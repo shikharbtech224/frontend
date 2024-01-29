@@ -1,4 +1,5 @@
 'use client';
+import Link from 'next/link';
 import { enqueueSnackbar } from 'notistack';
 import React, { useEffect, useState } from 'react'
 
@@ -49,7 +50,7 @@ const ManageUser = () => {
                 <td>{user.email}</td>
                 <td>{user.password}</td>
                 <td>
-                  <button className='btn btn-primary'>Edit</button>
+                  <Link href={"/updateuser/"+user._id} className='btn btn-primary'>Edit</Link>
                 </td>
                 <td>
                   <button className='btn btn-danger' onClick={ () => { deleteUser(user._id)}}>Delete</button>
