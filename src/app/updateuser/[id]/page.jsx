@@ -44,6 +44,11 @@ const UpdateUser = () => {
 
   return (
     <div>
+
+      <div className='col-md-3 mx-auto'>
+      <div className='card'>
+      <div className='card-body'>
+      <h3 className='text-center my-4'>
       <h1>Update User</h1>
 
       {
@@ -68,7 +73,12 @@ const UpdateUser = () => {
           <h1>Loading...</h1>
         )
       }
+      </h3>
     </div>
+    </div>
+    </div>
+    </div>
+    
   )
 }
 
