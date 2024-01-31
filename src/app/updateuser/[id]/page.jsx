@@ -20,7 +20,7 @@ const UpdateUser = () => {
 
   useEffect(() => {
     fetchUserData();
-  },  []);
+  }, []);
 
   const formSubmit = async (values) => {
     console.log(values);
