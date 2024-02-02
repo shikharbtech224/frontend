@@ -1,7 +1,45 @@
+'use client';
 import Link from 'next/link';
-import React from 'react'
+import { useRouter } from 'next/navigation';
+import React, { useState } from 'react'
 
 const Navbar = () => {
+
+  const router = useRouter();
+
+  const [currentUser, setCurrentUser] = useState(
+    JSON.parse(sessionStorage.getItem('user'))
+  );
+
+  const logout = () => {
+    sessionStorage.removeItem('user');
+    setCurrentUser(null);
+    router.push('/login');
+  }
+
+  const showUserOptions = () => {
+    if(currentUser !== null){
+      return <li className="nav-item">
+       <button className="btn btn-danger" onClick={logout}>Logout</button>
+       </li>
+
+    }else{
+      return <> <li className="nav-item">
+      <Link className="nav-link" href="/login">
+        Login
+      </Link>
+    </li>
+
+    <li className="nav-item">
+      <Link className="nav-link" href="/signup">
+        Signup
+      </Link>
+    </li>
+    </>
+
+    }
+  }
+
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary">
   <div className="container-fluid">
@@ -26,18 +64,7 @@ const Navbar = () => {
             Home
           </Link>
         </li>
-        <li className="nav-item">
-          <Link className="nav-link" href="/login">
-            Login
-          </Link>
-        </li>
-
-        <li className="nav-item">
-          <Link className="nav-link" href="/signup">
-            Signup
-          </Link>
-        </li>
-
+        
         <li className="nav-item">
           <Link className="nav-link" href="/eventhandling">
             Event Handling
@@ -74,6 +101,8 @@ const Navbar = () => {
             Manage User
           </Link>
         </li>
+
+        {showUserOptions()}
 
       </ul>
       <form className="d-flex" role="search">

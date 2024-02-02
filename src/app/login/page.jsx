@@ -1,8 +1,10 @@
 'use client';
 import React from 'react';
-import './login.css'
+import './login.css';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import { enqueueSnackbar } from 'notistack';
+import { useRouter } from 'next/navigation';
 
 const LoginSchema = Yup.object().shape({
   email: Yup.string().email('Invalid email').required('Required'),
@@ -15,17 +17,36 @@ const LoginSchema = Yup.object().shape({
 
 const Login = () => {
 
+  const router = useRouter();
+
   const loginForm = useFormik({
     initialValues: {
       email : '',
       password : '',
     },
-    onSubmit: (values, {resetForm}) => {
+    onSubmit: async (values, {resetForm}) => {
       console.log(values);
 
-      setTimeout(() => {
-              resetForm();
-      }, 3000);
+      const res = await fetch('http://localhost:5000/user/authenticate', {
+        method: 'POST',
+        body: JSON.stringify(values),
+        headers: {'Content-Type': 'application/json'}
+      });
+
+      console.log(res.status);
+
+      if(res.status === 200){
+        enqueueSnackbar('Successfully Logged In', {variant: 'success'});
+        
+        const data = await res.json();
+        sessionStorage.setItem('user', JSON.stringify(data));
+        router.push('/chat');
+
+      }else if(res.status === 401){
+        enqueueSnackbar('Invalid Credentials', {variant: 'error'});
+      }else{
+        enqueueSnackbar('Something went wrong', {variant: 'error'});
+      }
 
     },
     validationSchema: LoginSchema
