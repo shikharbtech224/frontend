@@ -2,23 +2,14 @@
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react'
+import useAppContext from './AppContext';
 
 const Navbar = () => {
 
-  const router = useRouter();
-
-  const [currentUser, setCurrentUser] = useState(
-    JSON.parse(sessionStorage.getItem('user'))
-  );
-
-  const logout = () => {
-    sessionStorage.removeItem('user');
-    setCurrentUser(null);
-    router.push('/login');
-  }
+  const { loggedIn, logout } = useAppContext();
 
   const showUserOptions = () => {
-    if(currentUser !== null){
+    if(loggedIn){
       return <li className="nav-item">
        <button className="btn btn-danger" onClick={logout}>Logout</button>
        </li>

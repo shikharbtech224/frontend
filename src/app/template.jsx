@@ -1,6 +1,8 @@
 'use client'
 import { SnackbarProvider } from 'notistack';
 import { useEffect } from 'react';
+import { AppProvider } from './AppContext';
+import Navbar from './Navbar';
 
 export default function Template({ children }) {
     
@@ -9,6 +11,9 @@ export default function Template({ children }) {
      },[]);
 
     return <SnackbarProvider maxSnack={3} anchorOrigin={{ vertical: 'top', horizontal: 'right' }} >
-      {children}
+      <AppProvider>
+        <Navbar />
+        {children}
+      </AppProvider>
       </SnackbarProvider>
   }

@@ -5,6 +5,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { enqueueSnackbar } from 'notistack';
 import { useRouter } from 'next/navigation';
+import useAppContext from '../AppContext';
 
 const LoginSchema = Yup.object().shape({
   email: Yup.string().email('Invalid email').required('Required'),
@@ -18,6 +19,8 @@ const LoginSchema = Yup.object().shape({
 const Login = () => {
 
   const router = useRouter();
+
+  const { setLoggedIn } = useAppContext();
 
   const loginForm = useFormik({
     initialValues: {
@@ -40,6 +43,7 @@ const Login = () => {
         
         const data = await res.json();
         sessionStorage.setItem('user', JSON.stringify(data));
+        setLoggedIn(true);
         router.push('/chat');
 
       }else if(res.status === 401){
